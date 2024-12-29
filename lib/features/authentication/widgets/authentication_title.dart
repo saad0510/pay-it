@@ -61,8 +61,8 @@ class AuthenticationTitle extends ConsumerWidget {
     final key = auth.when(
       skipLoadingOnReload: true,
       data: (x) => ValueKey(x),
-      error: (_, __) => const ValueKey('error'),
-      loading: () => const ValueKey('loading'),
+      error: (_, __) => const Key('error'),
+      loading: () => const Key('loading'),
     );
 
     return Animate(
