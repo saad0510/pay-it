@@ -24,7 +24,7 @@ class _FingerprintScanState extends State<FingerprintScan> with TickerProviderSt
   Widget build(BuildContext context) {
     return Lottie.asset(
       AppAnimations.fingerprint.path,
-      key: const ValueKey('fingerprint'),
+      key: const Key('fingerprint_animation'),
       width: 500,
       height: 500,
       controller: controller,

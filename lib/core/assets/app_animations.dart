@@ -1,5 +1,6 @@
 enum AppAnimations {
   fingerprint,
+  nfc_reading,
   ;
 
   String get path => 'assets/animations/$name.json';
