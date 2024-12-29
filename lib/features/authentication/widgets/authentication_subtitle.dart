@@ -40,11 +40,13 @@ class AuthenticationSubtitle extends ConsumerWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Error',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: context.colors.error,
+            Flexible(
+              child: Text(
+                auth.error is String ? auth.error.toString() : 'Error',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: context.colors.error,
+                ),
               ),
             ),
             Sizes.s6.spaceX,

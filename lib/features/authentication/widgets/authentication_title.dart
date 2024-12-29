@@ -15,13 +15,15 @@ class AuthenticationTitle extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final auth = ref.watch(authNotifier);
 
-    Widget widget = const SizedBox.shrink();
+    void callAuth() {
+      ref.read(authNotifier.notifier).authenticate();
+    }
+
+    Widget? widget;
 
     if (auth.value ?? false)
       widget = InkWell(
-        onLongPress: () {
-          ref.read(authNotifier.notifier).authenticate();
-        },
+        onLongPress: callAuth,
         child: const Text(
           'Verified',
           textAlign: TextAlign.center,
@@ -34,9 +36,7 @@ class AuthenticationTitle extends ConsumerWidget {
 
     if (auth.hasError)
       widget = InkWell(
-        onTap: () {
-          ref.read(authNotifier.notifier).authenticate();
-        },
+        onTap: callAuth,
         child: Text(
           'Retry',
           textAlign: TextAlign.center,
@@ -46,6 +46,17 @@ class AuthenticationTitle extends ConsumerWidget {
           ),
         ),
       );
+
+    widget ??= InkWell(
+      onTap: callAuth,
+      child: const Text(
+        'Start',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
 
     final key = auth.when(
       skipLoadingOnReload: true,

@@ -6,11 +6,16 @@ import '../../../theme/app_colors.dart';
 import '../controllers/auth_notifier.dart';
 import 'fingerprint_scan.dart';
 
-class AuthFingerprintScan extends ConsumerWidget {
+class AuthFingerprintScan extends ConsumerStatefulWidget {
   const AuthFingerprintScan({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _AuthFingerprintScanState();
+}
+
+class _AuthFingerprintScanState extends ConsumerState<AuthFingerprintScan> {
+  @override
+  Widget build(BuildContext context) {
     final auth = ref.watch(authNotifier);
 
     final colors = context.colors;
@@ -25,5 +30,16 @@ class AuthFingerprintScan extends ConsumerWidget {
       color: color,
       filled: !auth.isLoading,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startAuthentication();
+  }
+
+  void startAuthentication() async {
+    await Future.delayed(Duration.zero);
+    ref.read(authNotifier.notifier).authenticate();
   }
 }
