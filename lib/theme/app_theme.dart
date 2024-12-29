@@ -34,6 +34,9 @@ class AppTheme {
     surfaceTintColor: Colors.transparent,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
+      statusBarColor: AppColors.white,
+      systemNavigationBarColor: AppColors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
 
