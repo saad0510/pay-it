@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
+import '../widgets/card_scan_actions.dart';
 import '../widgets/credit_card_animation.dart';
-import '../widgets/phone_reader_animation.dart';
 
 class CardScanScreen extends StatelessWidget {
   const CardScanScreen({super.key});
@@ -20,25 +19,7 @@ class CardScanScreen extends StatelessWidget {
         ),
       ),
       extendBody: true,
-      bottomNavigationBar: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Animate(
-            delay: const Duration(milliseconds: 1500),
-            effects: const [ShakeEffect(), FadeEffect()],
-            child: const Text(
-              'HOLD NEAR READER',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                letterSpacing: 2,
-                wordSpacing: 5,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const PhoneReaderAnimation(),
-        ],
-      ),
+      bottomNavigationBar: const CardScanActions(),
     );
   }
 }

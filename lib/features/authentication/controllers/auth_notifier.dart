@@ -24,6 +24,8 @@ class AuthNotifier extends AsyncNotifier<bool> {
         localizedReason: 'Authenticate to continue using PayIt',
       );
       state = AsyncData(success);
+    } on String catch (e, s) {
+      state = AsyncError(e, s);
     } on PlatformException catch (e, s) {
       state = AsyncError(_expandErrorMessage(e), s);
     } catch (e, s) {

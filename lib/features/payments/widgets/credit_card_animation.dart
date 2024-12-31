@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../controller/card_scan_notifier.dart';
+import '../entities/card_data.dart';
 import 'credit_card_widget.dart';
 
 class CreditCardAnimation extends StatelessWidget {
@@ -35,11 +38,24 @@ class CreditCardAnimation extends StatelessWidget {
           child: child,
         );
       },
-      child: CreditCardWidget(
-        width: MediaQuery.sizeOf(context).width * 0.9,
-        color: Colors.grey.shade900,
-        darkColor: Colors.black,
-        textColor: Colors.white,
+      child: Consumer(
+        builder: (context, ref, _) {
+          final card = ref.watch(cardScanNotifier).value;
+          const defaultCard = CardData(
+            holderName: 'HOLDER NAME',
+            cardNumber: '**** **** **** 5610',
+            applicationName: '',
+            expirtyDate: '00/00',
+          );
+
+          return CreditCardWidget(
+            width: MediaQuery.sizeOf(context).width * 0.9,
+            color: Colors.grey.shade900,
+            darkColor: Colors.black,
+            textColor: Colors.white,
+            data: card ?? defaultCard,
+          );
+        },
       ),
     );
   }

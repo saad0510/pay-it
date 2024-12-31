@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../theme/sizes.dart';
+import '../entities/card_data.dart';
 
 class CreditCardWidget extends StatelessWidget {
   const CreditCardWidget({
@@ -9,15 +10,26 @@ class CreditCardWidget extends StatelessWidget {
     required this.color,
     required this.darkColor,
     required this.textColor,
+    required this.data,
   });
 
   final double width;
   final Color color;
   final Color darkColor;
   final Color textColor;
+  final CardData data;
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = TextStyle(
+      fontSize: 16,
+      height: 2,
+      letterSpacing: 3,
+      wordSpacing: 5,
+      fontWeight: FontWeight.w500,
+      color: textColor,
+    );
+
     return Container(
       width: width,
       height: width / 1.5,
@@ -34,25 +46,45 @@ class CreditCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'VISA\nPLATINUM',
-            style: TextStyle(
-              fontSize: 12,
-              height: 2,
-              letterSpacing: 3,
-              fontWeight: FontWeight.w500,
-              color: textColor,
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      data.holderName.toUpperCase(),
+                      style: textStyle,
+                    ),
+                    Text(
+                      data.expirtyDate.toUpperCase(),
+                      style: textStyle,
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                data.applicationName,
+                textAlign: TextAlign.right,
+                style: textStyle.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
           const Spacer(),
-          Text(
-            '**** **** **** 5610',
-            maxLines: 1,
-            style: TextStyle(
-              fontSize: 18,
-              letterSpacing: 5,
-              wordSpacing: 12,
-              color: textColor,
+          FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              data.cardNumber,
+              maxLines: 1,
+              style: TextStyle(
+                letterSpacing: 5,
+                wordSpacing: 12,
+                color: textColor,
+              ),
             ),
           ),
         ],

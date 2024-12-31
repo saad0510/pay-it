@@ -1,0 +1,21 @@
+name: emv_card_reader
+description: "NFC reader for payment related EMV card family"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.paytrek.stater
+        pluginClass: EmvCardReaderPlugin
