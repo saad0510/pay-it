@@ -24,7 +24,7 @@ class AppColors {
   static const primaryLight = Colors.grey;
   static const textColor = Color(0xFF212121);
   static const error = Color(0xFFD32F2F);
-  static const errorLight = Color(0xFFEF9A9A);
-  static const success = Colors.green;
+  static const errorLight = Color(0xFFFCDFDF);
+  static const success = Color(0xFF198754);
   static const white = Color(0xFFFFFFFF);
 }

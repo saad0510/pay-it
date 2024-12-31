@@ -33,6 +33,7 @@ flutter:
   assets:
     - assets/animations/nfc_reading.json
     - assets/animations/fingerprint.json
+    - assets/images/mastercard.png
     - shorebird.yaml
 
   # fonts:

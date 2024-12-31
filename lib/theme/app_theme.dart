@@ -32,12 +32,21 @@ class AppTheme {
     backgroundColor: Colors.transparent,
     foregroundColor: AppColors.primary,
     surfaceTintColor: Colors.transparent,
-    systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-      statusBarColor: AppColors.white,
-      systemNavigationBarColor: AppColors.white,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ),
+    systemOverlayStyle: lightOverlay,
+  );
+
+  static const lightOverlay = SystemUiOverlayStyle(
+    statusBarIconBrightness: Brightness.dark,
+    statusBarColor: AppColors.white,
+    systemNavigationBarColor: AppColors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  );
+
+  static const darkOverlay = SystemUiOverlayStyle(
+    statusBarIconBrightness: Brightness.light,
+    statusBarColor: AppColors.primary,
+    systemNavigationBarColor: AppColors.primary,
+    systemNavigationBarIconBrightness: Brightness.light,
   );
 
   static const iconTheme = IconThemeData(
@@ -45,7 +54,8 @@ class AppTheme {
   );
 
   static final inputFieldTheme = InputDecorationTheme(
-    filled: false,
+    filled: true,
+    fillColor: const Color(0xFFF1F1F1),
     alignLabelWithHint: true,
     contentPadding: Sizes.s16.pad,
     hintStyle: AppFonts.paragraph1.colored(AppColors.textColor),
@@ -59,9 +69,15 @@ class AppTheme {
   );
 
   static InputBorder inputFieldBorder({Color? color}) {
-    return OutlineInputBorder(
-      borderSide: BorderSide(color: color ?? AppColors.primaryLight),
-      borderRadius: const BorderRadius.all(Radius.circular(8)),
+    if (color != null)
+      return OutlineInputBorder(
+        borderSide: BorderSide(color: color, width: 1),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      );
+
+    return const OutlineInputBorder(
+      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.all(Radius.circular(8)),
     );
   }
 }

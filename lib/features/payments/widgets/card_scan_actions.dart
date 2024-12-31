@@ -19,13 +19,14 @@ class CardScanActions extends ConsumerWidget {
 
     Widget? widget;
 
-    if (card.hasValue) if (card.requireValue != null)
-      widget = _CardSuccessActions(
-        card: card.requireValue!,
-      );
-    else
-      widget = const _CardScanWaitingActions();
-
+    if (card.hasValue) {
+      if (card.requireValue != null)
+        widget = _CardSuccessActions(
+          card: card.requireValue!,
+        );
+      else
+        widget = const _CardScanWaitingActions();
+    }
     if (card.hasError)
       widget = _CardErrorActions(
         error: card.error,

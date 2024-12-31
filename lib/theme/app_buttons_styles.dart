@@ -28,11 +28,12 @@ class AppButtonsStyles {
       textStyle: buttonStyle.textStyle ?? _Fixed(_textStyle),
       visualDensity: VisualDensity.compact,
       shadowColor: const _Fixed(Colors.transparent),
-      shape: const _Fixed(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
-      ),
+      shape: buttonStyle.shape ??
+          const _Fixed(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            ),
+          ),
     );
   }
 
@@ -42,6 +43,19 @@ class AppButtonsStyles {
       foregroundColor: primaryForeground,
       overlayColor: primaryOverlay,
       textStyle: _textStyle,
+    ),
+  );
+
+  static final secondaryElevatedButton = _baseStyles(
+    ElevatedButton.styleFrom(
+      backgroundColor: primaryForeground,
+      foregroundColor: primaryBackground,
+      overlayColor: primaryOverlay,
+      textStyle: _textStyle,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        side: BorderSide(color: primaryBackground, width: 1),
+      ),
     ),
   );
 
@@ -71,7 +85,7 @@ class AppButtonsStyles {
     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     shape: _Fixed(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
     ),
   );
