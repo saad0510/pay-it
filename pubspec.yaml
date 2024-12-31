@@ -29,6 +29,7 @@ flutter:
   assets:
     - assets/animations/nfc_reading.json
     - assets/animations/fingerprint.json
+    - shorebird.yaml
 
   # fonts:
   #   - family: Schyler
