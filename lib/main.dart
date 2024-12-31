@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/app_constants.dart';
+import 'features/authentication/controllers/auth_notifier.dart';
+import 'features/authentication/screens/authentication_screen.dart';
 import 'features/payments/screens/card_scan_screen.dart';
 import 'theme/app_theme.dart';
 
@@ -19,8 +21,23 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: AppConstants.appTitle,
         theme: AppTheme().theme,
-        home: const CardScanScreen(),
+        home: Consumer(
+          builder: (_, ref, __) {
+            final screen = ref.watch(currentScreenProvider).valueOrNull;
+            return screen ?? const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }
 }
+
+final currentScreenProvider = FutureProvider<Widget>(
+  (ref) async {
+    final auth = ref.watch(authNotifier).unwrapPrevious().valueOrNull ?? false;
+    if (!auth) return const AuthenticationScreen();
+
+    await Future.delayed(const Duration(seconds: 1));
+    return const CardScanScreen();
+  },
+);

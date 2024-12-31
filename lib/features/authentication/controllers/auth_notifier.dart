@@ -49,10 +49,10 @@ class AuthNotifier extends AsyncNotifier<bool> {
   }
 
   void onChange(AsyncValue<bool>? previous, AsyncValue<bool> next) {
-    final prevAuth = previous?.value ?? false;
-    final nextAuth = next.value ?? false;
+    final prevAuth = previous?.unwrapPrevious().valueOrNull ?? false;
+    final nextAuth = next.unwrapPrevious().valueOrNull ?? false;
     if (prevAuth == nextAuth) return;
-    if (nextAuth) startExpiring();
+    // if (nextAuth) startExpiring();
   }
 
   void startExpiring() {
