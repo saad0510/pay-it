@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/extensions/string_ext.dart';
 import '../../../theme/sizes.dart';
 import '../entities/card_data.dart';
 
@@ -78,7 +79,7 @@ class CreditCardWidget extends StatelessWidget {
           FittedBox(
             fit: BoxFit.fitWidth,
             child: Text(
-              data.cardNumber,
+              data.cardNumber.interpolate(' ', 4),
               maxLines: 1,
               style: TextStyle(
                 letterSpacing: 5,
