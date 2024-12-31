@@ -8,6 +8,7 @@ class TransactionData {
   final String receiverPhone;
   final String? message;
   final TransactionStatus status;
+  final String userId;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -18,6 +19,7 @@ class TransactionData {
     required this.receiverPhone,
     required this.message,
     required this.status,
+    required this.userId,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -30,8 +32,9 @@ class TransactionData {
       'receiverPhone': receiverPhone,
       'message': message,
       'status': status.toMap(),
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
+      'userId': userId,
+      'createdAt': createdAt.toFirebaseTimestamp(),
+      'updatedAt': updatedAt.toFirebaseTimestamp(),
     };
   }
 
@@ -45,8 +48,9 @@ class TransactionData {
       receiverPhone: map.decodeStr('receiverPhone'),
       message: map.decodeMaybeStr('message'),
       status: TransactionStatus.fromMap(map['status']),
-      createdAt: map.decodeTimestamp('createdAt'),
-      updatedAt: map.decodeTimestamp('updatedAt'),
+      userId: map.decodeStr('userId'),
+      createdAt: map.decodeDateTime('createdAt'),
+      updatedAt: map.decodeDateTime('updatedAt'),
     );
   }
 
@@ -57,6 +61,7 @@ class TransactionData {
     String? receiverPhone,
     String? message,
     TransactionStatus? status,
+    String? userId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -67,6 +72,7 @@ class TransactionData {
       receiverPhone: receiverPhone ?? this.receiverPhone,
       message: message ?? this.message,
       status: status ?? this.status,
+      userId: userId ?? this.userId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );

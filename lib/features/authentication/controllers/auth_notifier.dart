@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
@@ -23,6 +24,7 @@ class AuthNotifier extends AsyncNotifier<bool> {
       final success = await LocalAuthentication().authenticate(
         localizedReason: 'Authenticate to continue using PayIt',
       );
+      await FirebaseAuth.instance.signInAnonymously();
       state = AsyncData(success);
     } on String catch (e, s) {
       state = AsyncError(e, s);

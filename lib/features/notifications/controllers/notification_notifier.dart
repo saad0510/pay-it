@@ -1,4 +1,5 @@
-import 'dart:async';
+import 'dart:async' show StreamSubscription;
+import 'dart:developer' show log;
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -43,6 +44,10 @@ class NotificationNotifier extends Notifier<RemoteMessage?> {
 
   void handleInteraction(RemoteMessage message) {
     state = message;
+    log(
+      message.toMap().toString(),
+      name: 'handleInteraction',
+    );
   }
 
   void handleNotification(RemoteMessage message) async {}

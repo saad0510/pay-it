@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
+
 extension DeSerializationExt on Map {
   String decodeStr(String key) {
     return this[key]?.toString() ?? '';
@@ -23,11 +25,19 @@ extension DeSerializationExt on Map {
     return List.from(this[key] ?? []);
   }
 
-  DateTime? decodeDateTime(String key) {
-    return DateTime.tryParse(decodeStr(key));
-  }
+  DateTime decodeDateTime(String key) {
+    final value = this[key];
 
-  DateTime decodeTimestamp(String key) {
-    return DateTime.fromMillisecondsSinceEpoch(decodeInt(key));
+    if (value is String) return DateTime.parse(decodeStr(key));
+    if (value is int) return DateTime.fromMillisecondsSinceEpoch(decodeInt(key));
+    if (value is Timestamp) return value.toDate();
+
+    throw UnimplementedError('unsupported DateTime encoding');
+  }
+}
+
+extension SerializationDateTimeExt on DateTime {
+  Timestamp toFirebaseTimestamp() {
+    return Timestamp.fromDate(this);
   }
 }
