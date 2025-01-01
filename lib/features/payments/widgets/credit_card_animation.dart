@@ -61,7 +61,7 @@ class _CreditCardAnimationState extends State<CreditCardAnimation> with TickerPr
             final card = ref.watch(cardScanNotifier).value;
             const defaultCard = CardData(
               holderName: 'HOLDER NAME',
-              cardNumber: '**** **** **** 5610',
+              cardNumber: '**** **** **** ****',
               applicationName: '',
               expirtyDate: '00/00',
             );

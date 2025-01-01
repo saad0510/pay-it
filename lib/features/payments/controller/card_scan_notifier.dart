@@ -43,10 +43,10 @@ class CardScanNotifier extends AutoDisposeAsyncNotifier<CardData?> {
       return;
     }
     final card = CardData(
-      holderName: data.holder ?? 'NA',
+      holderName: data.holder ?? '',
       cardNumber: data.number ?? '**** **** **** ****',
-      applicationName: data.type ?? 'NA',
-      expirtyDate: data.expire ?? 'NA',
+      applicationName: data.type ?? '',
+      expirtyDate: data.expire ?? '',
     );
     state = AsyncData(card);
   }

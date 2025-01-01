@@ -54,10 +54,11 @@ class CreditCardWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      data.holderName.toUpperCase(),
-                      style: textStyle,
-                    ),
+                    if (data.holderName.isNotEmpty)
+                      Text(
+                        data.holderName.toUpperCase(),
+                        style: textStyle,
+                      ),
                     Text(
                       data.expirtyDate.toUpperCase(),
                       style: textStyle,
