@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/errors/error_screen.dart';
 import '../../../core/extensions/price_ext.dart';
 import '../../../core/extensions/theme_ext.dart';
 import '../../../theme/app_colors.dart';
@@ -12,11 +13,36 @@ import '../widgets/transaction_actions.dart';
 import '../widgets/user_tile.dart';
 
 class TransactionScreen extends ConsumerWidget {
-  const TransactionScreen({super.key});
+  const TransactionScreen({
+    super.key,
+    required this.transactionID,
+  });
+
+  final String transactionID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final transaction = ref.watch(transactionProvider)!;
+    final transactionStream = ref.watch(transactionProvider(transactionID));
+
+    if (transactionStream.hasError)
+      return Material(
+        child: Container(
+          padding: Sizes.s32.pad,
+          alignment: Alignment.center,
+          child: _StreamError(
+            error: transactionStream.error,
+            stackTrace: transactionStream.stackTrace,
+          ),
+        ),
+      );
+
+    final transaction = transactionStream.asData?.valueOrNull;
+    if (transaction == null)
+      return const Material(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
 
     return Scaffold(
       backgroundColor: context.colors.primary,
@@ -25,7 +51,7 @@ class TransactionScreen extends ConsumerWidget {
         systemOverlayStyle: AppTheme.darkOverlay,
       ),
       extendBody: true,
-      bottomNavigationBar: const TransactionActions(),
+      bottomNavigationBar: TransactionActions(transaction: transaction),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -111,6 +137,61 @@ class TransactionScreen extends ConsumerWidget {
                   ],
                 ),
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StreamError extends StatelessWidget {
+  const _StreamError({
+    required this.error,
+    this.stackTrace,
+  });
+
+  final Object? error;
+  final StackTrace? stackTrace;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTextStyle(
+      style: context.typography.bodyMedium.colored(context.colors.error)!,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 100,
+            alignment: Alignment.center,
+            child: Icon(
+              Icons.error_rounded,
+              size: 80,
+              color: context.colors.error,
+            ),
+          ),
+          const Text(
+            'ERROR',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              letterSpacing: 2,
+              wordSpacing: 5,
+              height: 3,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              final screen = ErrorScreen(
+                title: 'Transaction Stream Error',
+                error: error,
+                stackTrace: stackTrace,
+              );
+              screen.showSheet(context);
+            },
+            child: Text(
+              error.toString(),
+              textAlign: TextAlign.center,
             ),
           ),
         ],

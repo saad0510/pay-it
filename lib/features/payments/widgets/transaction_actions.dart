@@ -1,28 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/extensions/json_ext.dart';
 import '../../../theme/app_buttons_styles.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/sizes.dart';
-import '../controller/transaction_provider.dart';
+import '../entities/transaction_data.dart';
 import '../entities/transaction_status.dart';
 
 class TransactionActions extends ConsumerWidget {
-  const TransactionActions({super.key});
+  const TransactionActions({
+    super.key,
+    required this.transaction,
+  });
+
+  final TransactionData transaction;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final transaction = ref.watch(transactionProvider);
-    if (transaction == null) return const SizedBox.shrink();
-
     return Animate(
       key: ValueKey(transaction.status),
       effects: const [FadeEffect(), MoveEffect()],
       child: Padding(
         padding: Sizes.s16.pad,
         child: switch (transaction.status) {
-          TransactionStatus.pending => const _TransactionPendingActions(),
+          TransactionStatus.pending => _TransactionPendingActions(transactionId: transaction.id),
           TransactionStatus.approved => const _TransactionApprovedActions(),
           TransactionStatus.declined => const _TransactionDeclinedActions(),
           TransactionStatus.failed => const _TransactionFailedActions(),
@@ -38,12 +42,7 @@ class _TransactionApprovedActions extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
-      onPressed: () {
-        final notifier = ref.read(transactionProvider.notifier);
-        notifier.update(
-          (t) => t?.copyWith(status: TransactionStatus.pending),
-        );
-      },
+      onPressed: () {},
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.success,
       ),
@@ -58,12 +57,7 @@ class _TransactionDeclinedActions extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
-      onPressed: () {
-        final notifier = ref.read(transactionProvider.notifier);
-        notifier.update(
-          (t) => t?.copyWith(status: TransactionStatus.pending),
-        );
-      },
+      onPressed: () {},
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.error,
       ),
@@ -88,31 +82,33 @@ class _TransactionFailedActions extends ConsumerWidget {
 }
 
 class _TransactionPendingActions extends ConsumerWidget {
-  const _TransactionPendingActions();
+  const _TransactionPendingActions({
+    required this.transactionId,
+  });
+
+  final String transactionId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void update(TransactionStatus status) async {
+      final transactions = FirebaseFirestore.instance.collection('transactions');
+      await transactions.doc(transactionId).update({
+        'status': status.toMap(),
+        'updatedAt': DateTime.now().toFirebaseTimestamp(),
+      });
+    }
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ElevatedButton(
-          onPressed: () {
-            final notifier = ref.read(transactionProvider.notifier);
-            notifier.update(
-              (t) => t?.copyWith(status: TransactionStatus.approved),
-            );
-          },
+          onPressed: () => update(TransactionStatus.approved),
           child: const Text('Send'),
         ),
         Sizes.s10.spaceY,
         ElevatedButton(
-          onPressed: () {
-            final notifier = ref.read(transactionProvider.notifier);
-            notifier.update(
-              (t) => t?.copyWith(status: TransactionStatus.declined),
-            );
-          },
+          onPressed: () => update(TransactionStatus.declined),
           style: AppButtonsStyles.secondaryElevatedButton,
           child: const Text('Cancel'),
         ),

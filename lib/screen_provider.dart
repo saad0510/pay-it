@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_friendly_name/device_friendly_name.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,9 +10,6 @@ import 'features/authentication/controllers/auth_notifier.dart';
 import 'features/authentication/screens/authentication_screen.dart';
 import 'features/notifications/controllers/fcm_provider.dart';
 import 'features/notifications/controllers/notification_notifier.dart';
-import 'features/payments/controller/transaction_provider.dart';
-import 'features/payments/entities/transaction_data.dart';
-import 'features/payments/entities/transaction_status.dart';
 import 'features/payments/screens/card_scan_screen.dart';
 import 'features/payments/screens/transaction_screen.dart';
 
@@ -28,27 +26,13 @@ final currentScreenProvider = FutureProvider<Widget>(
 
     final notification = ref.watch(notificationNotifier);
     if (notification != null) {
-      onNewNotification(ref);
-      return const TransactionScreen();
+      final id = decodeTransactionId(notification);
+      if (id != null) return TransactionScreen(transactionID: id);
     }
 
     return const CardScanScreen();
   },
 );
-
-void onNewNotification(Ref ref) {
-  ref.read(transactionProvider.notifier).state = TransactionData(
-    id: '123',
-    amount: 15034,
-    receiverName: 'Saad Bin Khalid',
-    receiverPhone: '+923133094567',
-    message: null,
-    status: TransactionStatus.pending,
-    userId: '123',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-  );
-}
 
 void onFcmChanged(String? oldFcm, String? newFcm) async {
   if (oldFcm == newFcm) return;
@@ -63,4 +47,9 @@ void onFcmChanged(String? oldFcm, String? newFcm) async {
   };
   final users = FirebaseFirestore.instance.collection('users');
   await users.doc(userId).set(data, SetOptions(merge: true));
+}
+
+String? decodeTransactionId(RemoteMessage notification) {
+  final transactionId = notification.data.decodeStr('transaction_id').trim();
+  return transactionId.isEmpty ? null : transactionId;
 }
