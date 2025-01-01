@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/error_screen.dart';
-import '../../../core/extensions/price_ext.dart';
 import '../../../core/extensions/theme_ext.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/sizes.dart';
 import '../controller/transaction_provider.dart';
+import '../entities/transaction_status.dart';
+import '../widgets/animated_number_widget.dart';
 import '../widgets/mastercard_preview.dart';
 import '../widgets/transaction_actions.dart';
 import '../widgets/user_tile.dart';
@@ -70,15 +71,18 @@ class TransactionScreen extends ConsumerWidget {
                       textAlign: TextAlign.center,
                     ),
                     Sizes.s24.spaceY,
-                    Text(
-                      transaction.amount.priceFromCents,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 50,
-                        letterSpacing: -2,
-                        height: 1,
-                        fontWeight: FontWeight.bold,
-                        fontFamilyFallback: ['Monospace'],
+                    AnimatedNumberWidget(
+                      number: transaction.amount / 100,
+                      builder: (_, value) => Text(
+                        '\$${value.toStringAsFixed(2)}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 50,
+                          letterSpacing: -2,
+                          height: 1,
+                          fontWeight: FontWeight.bold,
+                          fontFamilyFallback: ['Monospace'],
+                        ),
                       ),
                     ),
                     Sizes.s24.spaceY,
@@ -126,6 +130,7 @@ class TransactionScreen extends ConsumerWidget {
                     TextFormField(
                       maxLines: 3,
                       initialValue: transaction.message,
+                      readOnly: transaction.status != TransactionStatus.pending,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
                       onEditingComplete: () => FocusManager.instance.primaryFocus?.nextFocus(),

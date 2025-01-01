@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../theme/sizes.dart';
 import '../widgets/auth_fingerprint_scan.dart';
-import '../widgets/authentication_title.dart';
 import '../widgets/authentication_subtitle.dart';
+import '../widgets/authentication_title.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({super.key});
