@@ -95,7 +95,7 @@ class AppFonts {
     displaySmall: TextStyle(),
     headlineLarge: TextStyle(),
     headlineMedium: TextStyle(),
-    headlineSmall: TextStyle(),
+    headlineSmall: heading4,
     titleLarge: heading6,
     titleMedium: TextStyle(),
     titleSmall: TextStyle(),
@@ -104,7 +104,7 @@ class AppFonts {
     labelSmall: TextStyle(),
     bodyLarge: TextStyle(),
     bodyMedium: paragraph1,
-    bodySmall: TextStyle(),
+    bodySmall: paragraph2,
   ).apply(
     fontFamily: fontFamily,
     bodyColor: AppColors.textColor,

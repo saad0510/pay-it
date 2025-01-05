@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/app_constants.dart';
 import '../../../core/extensions/theme_ext.dart';
 import '../../../theme/sizes.dart';
 
@@ -24,7 +25,7 @@ class UserTile extends StatelessWidget {
         contentPadding: Sizes.padXY(x: Sizes.s16, y: Sizes.s3),
         leading: const CircleAvatar(
           radius: 25,
-          backgroundImage: NetworkImage('https://i.pravatar.cc/300?img=12'),
+          backgroundImage: NetworkImage(AppConstants.userProfilePic),
         ),
         title: Text(name),
         subtitle: Text(phone),
