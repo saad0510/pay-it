@@ -10,7 +10,7 @@ import 'features/authentication/controllers/auth_notifier.dart';
 import 'features/authentication/screens/authentication_screen.dart';
 import 'features/notifications/controllers/fcm_provider.dart';
 import 'features/notifications/controllers/notification_notifier.dart';
-import 'features/payments/screens/card_scan_screen.dart';
+import 'features/home/screens/home_screen.dart';
 import 'features/payments/screens/transaction_screen.dart';
 
 final currentScreenProvider = FutureProvider<Widget>(
@@ -30,7 +30,7 @@ final currentScreenProvider = FutureProvider<Widget>(
       if (id != null) return TransactionScreen(transactionID: id);
     }
 
-    return const CardScanScreen();
+    return const HomeScreen();
   },
 );
 

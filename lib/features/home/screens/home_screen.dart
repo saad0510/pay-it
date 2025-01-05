@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/extensions/theme_ext.dart';
 import '../../../theme/sizes.dart';
+import '../../payments/screens/card_scan_screen.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/payees_list.dart';
 import '../widgets/transaction_bottom_sheet.dart';
@@ -12,6 +13,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: context.colors.primary,
+        foregroundColor: context.colors.onPrimary,
+        onPressed: () {
+          final route = MaterialPageRoute(builder: (_) => const CardScanScreen());
+          Navigator.of(context).push(route);
+        },
+        child: const Icon(Icons.credit_card),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
