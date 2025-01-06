@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/app_constants.dart';
+import 'core/utils/image_precacher.dart';
 import 'firebase_options.dart';
 import 'screen_provider.dart';
 import 'theme/app_theme.dart';
@@ -15,9 +16,14 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -32,6 +38,14 @@ class MyApp extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () => mounted ? ImagePrecacher(context).call() : null,
     );
   }
 }

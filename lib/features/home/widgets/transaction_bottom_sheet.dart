@@ -18,7 +18,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final transactions = TransactionData.generateRandomTransactions();
+    final transactions = TransactionData.randomTransactions;
 
     return DraggableScrollableSheet(
       expand: true,
