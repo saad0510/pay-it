@@ -1,7 +1,7 @@
 name: pay_it
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.0.0+2
+version: 1.0.1+0
 
 environment:
   sdk: ^3.5.3
