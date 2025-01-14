@@ -72,9 +72,6 @@ class EmvCardReaderPlugin: FlutterPlugin, ActivityAware, MethodCallHandler, Even
           stop()
           result.success(true)
         }
-        "read" -> {
-          listeners.add(NfcReader(result, call))
-        }
         "getNfcStatus" -> {
           val nfcManager = activity?.getSystemService(Context.NFC_SERVICE) as? NfcManager
           val nfcAdapter = nfcManager?.defaultAdapter

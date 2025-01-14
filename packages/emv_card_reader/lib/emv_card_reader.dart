@@ -21,10 +21,6 @@ class EmvCardReader {
     return await _mc.invokeMethod('stop');
   }
 
-  Future<EmvCard?> read() async {
-    return _mc.invokeMapMethod('read').then(_converter);
-  }
-
   Stream<EmvCard?> stream() {
     return _ec.receiveBroadcastStream().map(_converter);
   }
