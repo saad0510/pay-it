@@ -11,39 +11,39 @@ class TransactionData {
     required this.imageUrl,
   });
 
-  static List<TransactionData> randomTransactions = [
-    const TransactionData(
+  static const randomTransactions = [
+    TransactionData(
       title: 'Starbucks',
       category: 'Food & Drink',
       price: 5.75,
       imageUrl: 'https://www.freepnglogos.com/uploads/starbucks-logo-png-25.png',
     ),
-    const TransactionData(
+    TransactionData(
       title: 'PayPal',
       category: 'Transfers',
       price: 50.00,
       imageUrl:
           'https://www.numeroservicioalcliente.com/wp-content/uploads/2021/12/10304710_10152033784102611_8320996065442654531_n.png',
     ),
-    const TransactionData(
+    TransactionData(
       title: 'Walmart',
       category: 'Groceries',
       price: 45.23,
       imageUrl: 'https://www.freepnglogos.com/uploads/walmart-logo-7.jpeg',
     ),
-    const TransactionData(
+    TransactionData(
       title: 'Netflix',
       category: 'Entertainment',
       price: 15.99,
       imageUrl: 'https://www.freepnglogos.com/uploads/netflix-logo-circle-png-5.png',
     ),
-    const TransactionData(
+    TransactionData(
       title: 'Apple Store',
       category: 'Electronics',
       price: 199.00,
       imageUrl: 'https://file.bodnara.co.kr/up/news/131201-logo_apple.jpg',
     ),
-    const TransactionData(
+    TransactionData(
       title: 'Uber',
       category: 'Transport',
       price: 14.9,

@@ -18,7 +18,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final transactions = TransactionData.randomTransactions;
+    const transactions = TransactionData.randomTransactions;
 
     return DraggableScrollableSheet(
       expand: true,

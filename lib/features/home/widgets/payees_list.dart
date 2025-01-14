@@ -10,7 +10,7 @@ class PayeesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final users = UserData.randomUsers;
+    const users = UserData.randomUsers;
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
