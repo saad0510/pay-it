@@ -8,8 +8,9 @@ import 'app_fonts.dart';
 import 'sizes.dart';
 
 class AppTheme {
-  // TODO: static final theme = ThemeData(
-  final theme = ThemeData(
+  const AppTheme._();
+
+  static final theme = ThemeData(
     colorScheme: AppColors.colorScheme,
     textTheme: AppFonts.textTheme,
     iconTheme: iconTheme,

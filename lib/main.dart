@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: AppConstants.appTitle,
-        theme: AppTheme().theme,
+        theme: AppTheme.theme,
         home: Consumer(
           builder: (_, ref, __) {
             final screen = ref.watch(currentScreenProvider).valueOrNull;
