@@ -3,6 +3,14 @@ import 'package:flutter/services.dart';
 
 import '../../theme/app_colors.dart';
 
+extension NavExtOnContext on BuildContext {
+  void push(Widget screen) {
+    Navigator.maybeOf(this)?.push(
+      MaterialPageRoute(builder: (_) => screen),
+    );
+  }
+}
+
 extension CopyToClipboardExt on BuildContext {
   Future<void> copyToClipboard(String text, {String? title}) async {
     await Clipboard.setData(ClipboardData(text: text));
