@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../app/app_constants.dart';
 import '../../../core/extensions/theme_ext.dart';
@@ -28,13 +27,9 @@ class HomeAppBar extends StatelessWidget {
           style: context.typography.titleLarge,
         ),
       ),
-      trailing: Animate(
-        effects: const [ShakeEffect()],
-        delay: const Duration(seconds: 3),
-        child: const Icon(
-          Icons.notifications_on,
-          size: 35,
-        ),
+      trailing: const Icon(
+        Icons.notifications_on,
+        size: 35,
       ),
     );
   }
