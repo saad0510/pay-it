@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../app/app_constants.dart';
-import '../../../core/assets/app_icons.dart';
 import '../../../core/extensions/theme_ext.dart';
 import '../../../theme/sizes.dart';
 import '../../payments/widgets/animated_number_widget.dart';
@@ -32,7 +31,10 @@ class HomeAppBar extends StatelessWidget {
       trailing: Animate(
         effects: const [ShakeEffect()],
         delay: const Duration(seconds: 3),
-        child: AppNetworkIcons.notification.toImage(),
+        child: const Icon(
+          Icons.notifications_on,
+          size: 35,
+        ),
       ),
     );
   }

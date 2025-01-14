@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../app/app_constants.dart';
 import '../../features/home/entities/transaction_data.dart';
 import '../../features/home/entities/user_data.dart';
-import '../assets/app_icons.dart';
 
 class ImagePrecacher {
   final BuildContext context;
@@ -12,7 +11,6 @@ class ImagePrecacher {
 
   static final imageUrls = <String>[
     AppConstants.userProfilePic,
-    ...AppNetworkIcons.values.map((i) => i.url),
     ...UserData.randomUsers.map((u) => u.imageUrl),
     ...TransactionData.randomTransactions.map((u) => u.imageUrl),
   ];

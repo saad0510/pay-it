@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/assets/app_icons.dart';
 import '../../../core/extensions/theme_ext.dart';
 
 class NewPayeeButton extends StatelessWidget {
@@ -19,7 +18,10 @@ class NewPayeeButton extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(20),
-                child: AppNetworkIcons.add.toImage(),
+                child: const Icon(
+                  Icons.add,
+                  size: 30,
+                ),
               ),
             ),
           ),
