@@ -7,14 +7,8 @@ import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 
 class AuthNotifier extends AsyncNotifier<bool> {
-  Timer? _timer;
-
   @override
-  bool build() {
-    listenSelf(onChange);
-    ref.onDispose(() => _timer?.cancel());
-    return false;
-  }
+  bool build() => false;
 
   void authenticate() async {
     state = const AsyncLoading();
@@ -48,23 +42,6 @@ class AuthNotifier extends AsyncNotifier<bool> {
       auth_error.biometricOnlyNotSupported => 'The biometricOnly parameter can\'t be true on Windows',
       _ => e.toString(),
     };
-  }
-
-  void onChange(AsyncValue<bool>? previous, AsyncValue<bool> next) {
-    final prevAuth = previous?.unwrapPrevious().valueOrNull ?? false;
-    final nextAuth = next.unwrapPrevious().valueOrNull ?? false;
-    if (prevAuth == nextAuth) return;
-    // if (nextAuth) startExpiring();
-  }
-
-  void startExpiring() {
-    _timer?.cancel();
-    _timer = Timer(
-      const Duration(seconds: 3),
-      () {
-        state = AsyncError('Expired', StackTrace.current);
-      },
-    );
   }
 }
 
