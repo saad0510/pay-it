@@ -12,6 +12,6 @@ class IsoDepProvider(val tag: IsoDep): IProvider {
     }
 
     override fun getAt(): ByteArray {
-        return tag.getHistoricalBytes()
+        return tag.getHistoricalBytes() ?: byteArrayOf()
     }
 } 

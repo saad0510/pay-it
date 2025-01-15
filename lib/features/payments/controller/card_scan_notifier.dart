@@ -38,16 +38,16 @@ class CardScanNotifier extends AutoDisposeAsyncNotifier<CardData?> {
 
   void onEmvCard(EmvCard? data) {
     if (data == null) return;
-    if (data.status != 'ACTIVE') {
-      state = AsyncError('Card status is ${data.status}', StackTrace.current);
-      return;
-    }
-    final card = CardData(
+    var card = CardData(
       holderName: data.holder ?? '',
       cardNumber: data.number ?? '**** **** **** ****',
       applicationName: data.type ?? '',
       expirtyDate: data.expire ?? '',
+      isEmpty: data.isEmpty ?? false,
     );
+    if (card.isEmpty) {
+      card = state.valueOrNull?.copyWith(isEmpty: true) ?? card;
+    }
     state = AsyncData(card);
   }
 

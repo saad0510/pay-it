@@ -58,12 +58,13 @@ class _CreditCardAnimationState extends State<CreditCardAnimation> with TickerPr
         },
         child: Consumer(
           builder: (context, ref, _) {
-            final card = ref.watch(cardScanNotifier).value;
+            final card = ref.watch(cardScanNotifier).valueOrNull;
             const defaultCard = CardData(
               holderName: 'HOLDER NAME',
               cardNumber: '**** **** **** ****',
               applicationName: '',
               expirtyDate: '00/00',
+              isEmpty: false,
             );
 
             final (rotateX, rotateY) = ref.watch(gyroscopeStream).valueOrNull ?? (0.0, 0.0);

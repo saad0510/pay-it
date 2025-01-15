@@ -4,6 +4,7 @@ class EmvCard {
   final String? holder;
   final String? type;
   final String? status;
+  final bool? isEmpty;
 
   const EmvCard({
     this.number,
@@ -11,6 +12,7 @@ class EmvCard {
     this.holder,
     this.type,
     this.status,
+    this.isEmpty,
   });
 
   factory EmvCard.fromMap(dynamic data) {
@@ -22,6 +24,7 @@ class EmvCard {
       holder: map['holder']?.toString(),
       type: map['type']?.toString(),
       status: map['status']?.toString(),
+      isEmpty: map['is_empty']?.toString() == "true",
     );
   }
 }

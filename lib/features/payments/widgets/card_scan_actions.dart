@@ -20,11 +20,14 @@ class CardScanActions extends ConsumerWidget {
     Widget? widget;
 
     if (card.hasValue) {
-      if (card.requireValue != null)
-        widget = _CardSuccessActions(
-          card: card.requireValue!,
-        );
-      else
+      if (card.requireValue != null) {
+        if (card.requireValue!.isEmpty)
+          widget = const _CardEmptyActions();
+        else
+          widget = _CardSuccessActions(
+            card: card.requireValue!,
+          );
+      } else
         widget = const _CardScanWaitingActions();
     }
     if (card.hasError)
@@ -74,6 +77,39 @@ class _CardScanWaitingActions extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         PhoneReaderAnimation(),
+      ],
+    );
+  }
+}
+
+class _CardEmptyActions extends StatelessWidget {
+  const _CardEmptyActions();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'ACTIVE NFC DEVICE',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            letterSpacing: 2,
+            wordSpacing: 5,
+            height: 3,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          'Trying to connect with an active NFC device',
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(
+          height: 200,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
       ],
     );
   }
