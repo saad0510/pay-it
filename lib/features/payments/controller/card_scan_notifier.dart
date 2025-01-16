@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:emv_card_reader/emv_card_reader.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,20 +18,29 @@ class CardScanNotifier extends AutoDisposeAsyncNotifier<CardData?> {
     return null;
   }
 
-  void startScanning() async {
-    try {
+  void startScanning() {
+    _handleErrors(() async {
       await _reader.start();
       await checkAvailability();
       _subscription = _reader.stream().listen(
         onEmvCard,
-        onError: (error, stackTrace) {
-          state = AsyncError(error, stackTrace);
+        onError: (error) {
+          _handleErrors(() => throw error);
         },
       );
+    });
+  }
+
+  void _handleErrors(TaskCallback callback) async {
+    try {
+      await callback();
     } on String catch (e, s) {
       state = AsyncError(e, s);
     } on PlatformException catch (e, s) {
-      state = AsyncError(e.message ?? e.code, s);
+      String message = e.message ?? e.code;
+      if (message == 'Tag was lost.' || message == 'null') //
+        message = 'Moved away too fast!';
+      state = AsyncError(message, s);
     } catch (e, s) {
       state = AsyncError(e, s);
     }
