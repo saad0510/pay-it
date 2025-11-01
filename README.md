@@ -3,7 +3,7 @@
 # Pay It
 
 [![Star this repo](https://img.shields.io/badge/Star-⭐_this_repo-FFEC86?style=for-the-badge&logo=github&logoColor=white)](https://github.com/saad0510/pay-it)
-[![Watch Demo](https://img.shields.io/badge/Watch-Demo-CD2F30?style=for-the-badge&logo=youtube&logoColor=white)]([https://drive.google.com/file/d/1WU50BeynBNDoaCU2IGifww770nGkzUjC/view?usp=drive_link](https://firebasestorage.googleapis.com/v0/b/saadbinkhalid-portfolio.appspot.com/o/pay_it%2Fpay_it.mp4?alt=media&token=55c720d2-a4bf-40f9-8011-70eefcf0e6d1))
+[![Watch Demo](https://img.shields.io/badge/Watch-Demo-CD2F30?style=for-the-badge&logo=youtube&logoColor=white)](https://firebasestorage.googleapis.com/v0/b/saadbinkhalid-portfolio.appspot.com/o/pay_it%2Fpay_it.mp4?alt=media&token=55c720d2-a4bf-40f9-8011-70eefcf0e6d1)
 [![Download APK](https://img.shields.io/badge/Download-APK-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/saad0510/pay-it/releases/tag/apk)
 
 An EMV card reader app implemented through NFC sensors. Tap card on mobile to read details like PAN, expiry date, card network and more.
