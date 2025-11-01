@@ -25,3 +25,6 @@ An EMV card reader app implemented through NFC sensors. Tap card on mobile to re
 
 📽️ Video : [Click here](https://firebasestorage.googleapis.com/v0/b/saadbinkhalid-portfolio.appspot.com/o/pay_it%2Fpay_it.mp4?alt=media&token=55c720d2-a4bf-40f9-8011-70eefcf0e6d1) <br>
 📲 APK : [Click here](https://github.com/saad0510/pay-it/releases/tag/apk)
+
+## Developer
+saadbinkhalid.dev@gmail.com
